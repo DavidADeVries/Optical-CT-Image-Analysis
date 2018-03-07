@@ -1,11 +1,6 @@
-function [glyphCoords, averageGlyphValues] = extractBlobsWithAreaFilling_4con(binaryImage, varargin)
-%[glyphCoords, averageGlyphValues] = extractBlobsWithAreaFilling_4con(binaryImage, varargin)
+function [glyphCoords, averageGlyphValues] = extractBlobsWithAreaFilling_4con(binaryImage)
+%[glyphCoords, averageGlyphValues] = extractBlobsWithAreaFilling_4con(binaryImage)
 
-if length(varargin) == 1
-    image = varargin{1};
-else
-    image = [];
-end
 
 dims = size(binaryImage);
 
@@ -32,11 +27,7 @@ indicesMap = reshape(indicesMap, dims);
 for glyphNum=1:numGlyphs
     glyphMask = (glyphMap == glyphNum);
     
-    if ~isempty(image)
-        glyphValues = image(glyphMask);
-                
-        averageGlyphValues(glyphNum) = mean(glyphValues);
-    end
+    
     
     indices = indicesMap(glyphMask);
     
@@ -54,6 +45,7 @@ for glyphNum=1:numGlyphs
     h = maxY - minY;
     
     glyphCoords(glyphNum,:) = [x, y, w, h];
+    averageGlyphValues(glyphNum) = 
 end
 
 
